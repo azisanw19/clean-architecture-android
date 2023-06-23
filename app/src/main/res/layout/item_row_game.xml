@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginStart="@dimen/normal_margin"
+    android:layout_marginEnd="@dimen/normal_margin"
+    android:layout_marginTop="@dimen/normal_margin">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_game"
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:contentDescription="@string/content_description"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedSquare"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/TextSpecs.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_game"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Vampire: The Masquerade - Bloodlines 2" />
+
+    <TextView
+        android:id="@+id/tv_release_date"
+        style="@style/TextSpecs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_game"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        tools:text="Release date 2021-08-20" />
+
+    <TextView
+        android:id="@+id/tv_rating"
+        style="@style/TextSpecs.Drawable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        app:drawableStartCompat="@drawable/star"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_game"
+        app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
+        tools:text="4.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -1,0 +1,38 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.BaseProject" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary_800</item>
+        <item name="colorPrimaryVariant">@color/primary_900</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/analogous_800</item>
+        <item name="colorSecondaryVariant">@color/analogous_900</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.BaseProject" parent="Base.Theme.BaseProject" />
+
+    <style name="TextSpecs">
+        <item name="android:layout_marginStart">@dimen/medium_margin</item>
+        <item name="android:layout_marginEnd">@dimen/medium_margin</item>
+    </style>
+
+    <style name="TextSpecs.Title">
+        <item name="android:textSize">@dimen/bigger_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextSpecs.Drawable">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">@dimen/small_margin</item>
+    </style>
+
+    <style name="RoundedSquare">
+        <item name="cornerSize">10%</item>
+    </style>
+
+</resources>
