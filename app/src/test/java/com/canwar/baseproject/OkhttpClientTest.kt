@@ -16,7 +16,7 @@ class OkhttpClientTest {
 
     @JvmField
     @Rule
-    public val server = MockWebServer()
+    val server = MockWebServer()
 
     private lateinit var okHttpClient: OkHttpClient
 
