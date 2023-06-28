@@ -10,8 +10,9 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.util.concurrent.TimeUnit
 
-class InterceptorTest {
+class OkhttpClientTest {
 
     @JvmField
     @Rule
@@ -25,17 +26,14 @@ class InterceptorTest {
     }
 
     @Test
-    fun loggingInterceptorTest() {
+    fun okHttpClientTest() {
 
         val mockResponse = MockResponse()
             .setBody("Test")
-            .setHeader("API", "")
 
         server.enqueue(mockResponse)
 
-        val request = Request
-            .Builder()
-            .header("API", "API")
+        val request = Request.Builder()
             .url(server.url("/test"))
             .build()
 
@@ -47,6 +45,36 @@ class InterceptorTest {
             e.printStackTrace()
             throw e
         }
+    }
+
+    @Test
+    fun internalServerErrorTest() {
+        val mockResponse = MockResponse()
+            .setResponseCode(500)
+
+        server.enqueue(mockResponse)
+
+        val request = Request.Builder()
+            .url(server.url("/test"))
+            .build()
+
+        val response = okHttpClient.newCall(request).execute()
+        Assert.assertEquals(500, response.code)
+    }
+
+    @Test
+    fun requestTimeOutTest() {
+        val mockResponse = MockResponse()
+            .setBodyDelay(70, TimeUnit.SECONDS)
+            .setBody("test")
+
+        server.enqueue(mockResponse)
+
+        val request = Request.Builder()
+            .url(server.url("/test"))
+            .build()
+
+        Assert.assertThrows(IOException::class.java) { okHttpClient.newCall(request).execute() }
     }
 
 
