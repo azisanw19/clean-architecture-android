@@ -22,7 +22,7 @@ class OkhttpClientTest {
 
     @Before
     fun setup() {
-        okHttpClient = ApiModule.provideOkHttpClient()
+        okHttpClient = ApiModule.provideOkHttpClient(ApiModule.provideRequestInterceptor())
     }
 
     @Test

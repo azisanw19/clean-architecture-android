@@ -22,18 +22,25 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 
     buildTypes {
+        debug {
+            isDebuggable = true
+
+            buildConfigField("String", "BASE_URL", "\"https://api.rawg.io/api/\"")
+            buildConfigField("String", "API_KEY", "\"10a79a5e331e40d48d9b7e470d0ff6c5\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-        }
-        debug {
-            isDebuggable = true
+
+            buildConfigField("String", "BASE_URL", "\"https://api.rawg.io/api/\"")
+            buildConfigField("String", "API_KEY", "\"10a79a5e331e40d48d9b7e470d0ff6c5\"")
         }
     }
     compileOptions {
@@ -76,9 +83,13 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
 
-    /* RxJava dan Adapter */
+    /* RxJava and Adapter */
     implementation(libs.rxandroid)
-    implementation(libs.rxadapter)
+    implementation(libs.adapter.rxjava3)
+
+    /* Pagination */
+    implementation(libs.paging.rxjava3)
+    implementation(libs.paging.runtime.ktx)
 
     /* Image view */
     implementation(libs.coil)

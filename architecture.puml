@@ -4,7 +4,6 @@ node "Architecture Application" {
     component "Activity" as activity
     component "View Model" as viewModel
     component "Repository"" as repository
-    component "Data Source" as dataSource
 }
 
 database "SQL Lite" as databaseSQL
@@ -13,9 +12,8 @@ cloud "Api Service" as apiService
 
 activity <--> viewModel
 viewModel <--> repository
-repository <--> dataSource
-dataSource <--> databaseSQL
-dataSource <--> datastore
-dataSource <--> apiService
+repository <--> databaseSQL
+repository <--> datastore
+repository <--> apiService
 
 @enduml

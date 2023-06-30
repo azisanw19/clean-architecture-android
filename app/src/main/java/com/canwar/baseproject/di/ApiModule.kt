@@ -1,8 +1,8 @@
 package com.canwar.baseproject.di
 
+import com.canwar.baseproject.BuildConfig
 import com.canwar.baseproject.remote.api.ApiServices
-import com.canwar.baseproject.utils.API_KEY
-import com.canwar.baseproject.utils.BASE_URL
+import com.canwar.baseproject.repository.Repository
 import com.canwar.baseproject.utils.NETWORK_TIMEOUT
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -10,12 +10,15 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
@@ -23,55 +26,61 @@ import javax.inject.Singleton
 object ApiModule {
 
     @Provides
-    fun provideBaseUrl() = BASE_URL
+    fun provideRequestInterceptor() = Interceptor { chain ->
+        // Use this to api key in get
+        val url = chain.request()
+            .url
+            .newBuilder()
+            .addQueryParameter("key", BuildConfig.API_KEY)
+            .build()
+
+        // use this to header api key
+        val request = chain.request()
+            .newBuilder()
+            .addHeader("Accept", "application/json")
+//                .addHeader("key", API_KEY)
+            .url(url)
+            .build()
+        return@Interceptor chain.proceed(request)
+    }
 
     @Provides
-    fun provideConnectionTimeout() = NETWORK_TIMEOUT
+    fun provideOkHttpClient(requestInterceptor: Interceptor) = if (BuildConfig.DEBUG) {
+        /* Enable logging in build debug */
 
-    @Provides
-    fun provideOkHttpClient(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS)
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        val requestInterceptor = Interceptor { chain ->
-            // Use this to api key in get
-            val url = chain.request()
-                .url
-                .newBuilder()
-//                .addQueryParameter("api_key", API_KEY)
-                .build()
-
-            // use this to header api key
-            val request = chain.request()
-                .newBuilder()
-                .addHeader("API", API_KEY)
-                .url(url)
-                .build()
-            return@Interceptor chain.proceed(request)
-        }
-
-        return OkHttpClient
-            .Builder()
+        OkHttpClient.Builder()
+            .connectTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(requestInterceptor)
             .addInterceptor(loggingInterceptor)
+            .build()
+    } else {
+        /* Disable Logging for Release */
+
+        OkHttpClient.Builder()
+            .connectTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
+            .addInterceptor(requestInterceptor)
             .build()
     }
 
     @Provides
-    fun provideGson() : Gson = GsonBuilder()
+    fun provideGson() = GsonBuilder()
         .serializeNulls()
         .setPrettyPrinting()
+        .setLenient()
         .create()
 
 
     @Provides
     @Singleton
-    fun provideRetrofit(baseUrl: String = provideBaseUrl(), gson: Gson = provideGson(), client: OkHttpClient = provideOkHttpClient()): ApiServices =
+    fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient)=
         Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .client(client)
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.createAsync())
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiServices::class.java)
