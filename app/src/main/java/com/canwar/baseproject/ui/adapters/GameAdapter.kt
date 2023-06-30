@@ -14,7 +14,7 @@ class GameAdapter : PagingDataAdapter<Game, GameAdapter.ViewHolder>(
     DIFF_CALLBACK
 ) {
 
-    inner class ViewHolder(private var binding: ItemRowGameBinding) :
+    class ViewHolder(private var binding: ItemRowGameBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun setData(game: Game) {

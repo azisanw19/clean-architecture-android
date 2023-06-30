@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.canwar.baseproject.databinding.FragmentHomeBinding
 import com.canwar.baseproject.ui.adapters.GameAdapter
+import com.canwar.baseproject.ui.adapters.LoadingStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -43,6 +44,12 @@ class HomeFragment : Fragment() {
         binding.etSearch.doAfterTextChanged {
             viewModel.getGameData(it.toString())
         }
+
+        gameAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                gameAdapter.retry()
+            }
+        )
 
         binding.rvGame.apply {
             layoutManager = LinearLayoutManager(requireContext())
