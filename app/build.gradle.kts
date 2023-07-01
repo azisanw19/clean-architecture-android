@@ -98,4 +98,7 @@ dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
 
+    /* Timber logger */
+    implementation(libs.timber)
+
 }
