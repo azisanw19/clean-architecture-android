@@ -2,16 +2,11 @@ package com.canwar.baseproject.dataSource
 
 import androidx.paging.PagingState
 import androidx.paging.rxjava3.RxPagingSource
-import com.canwar.baseproject.model.databaseModel.Game
-import com.canwar.baseproject.model.databaseModel.PagingGame
+import com.canwar.baseproject.model.responseModel.Game
+import com.canwar.baseproject.model.responseModel.PagingGame
 import com.canwar.baseproject.remote.api.ApiServices
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.components.ViewModelComponent
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import javax.inject.Inject
 
 class GamesPagingSource(
     private val apiServices: ApiServices,

@@ -1,7 +1,7 @@
 package com.canwar.baseproject.remote.api
 
-import com.canwar.baseproject.model.databaseModel.Game
-import com.canwar.baseproject.model.databaseModel.PagingGame
+import com.canwar.baseproject.model.responseModel.Game
+import com.canwar.baseproject.model.responseModel.PagingGame
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET

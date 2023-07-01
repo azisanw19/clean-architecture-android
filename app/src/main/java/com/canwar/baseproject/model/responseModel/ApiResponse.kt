@@ -1,6 +1,4 @@
-package com.canwar.baseproject.model.databaseModel
-
-import com.google.gson.annotations.SerializedName
+package com.canwar.baseproject.model.responseModel
 
 data class ApiResponse<T>(
     val code: String,

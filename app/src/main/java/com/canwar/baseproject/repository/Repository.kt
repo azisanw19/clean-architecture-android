@@ -6,11 +6,6 @@ import androidx.paging.rxjava3.flowable
 import com.canwar.baseproject.dataSource.GamesPagingSource
 import com.canwar.baseproject.remote.api.ApiServices
 import com.canwar.baseproject.utils.NETWORK_PAGE_SIZE
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Inject
-import javax.inject.Singleton
 
 class Repository(private val apiServices: ApiServices) {
 

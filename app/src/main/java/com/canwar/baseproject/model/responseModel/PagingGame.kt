@@ -1,4 +1,4 @@
-package com.canwar.baseproject.model.databaseModel
+package com.canwar.baseproject.model.responseModel
 
 data class PagingGame(
     val results: List<Game>,

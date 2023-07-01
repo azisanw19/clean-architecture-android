@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.canwar.baseproject.R
 import com.canwar.baseproject.databinding.ItemRowGameBinding
-import com.canwar.baseproject.model.databaseModel.Game
+import com.canwar.baseproject.model.responseModel.Game
 
 class GameAdapter : PagingDataAdapter<Game, GameAdapter.ViewHolder>(
     DIFF_CALLBACK

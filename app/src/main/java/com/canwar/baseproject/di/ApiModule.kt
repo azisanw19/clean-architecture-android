@@ -2,7 +2,6 @@ package com.canwar.baseproject.di
 
 import com.canwar.baseproject.BuildConfig
 import com.canwar.baseproject.remote.api.ApiServices
-import com.canwar.baseproject.repository.Repository
 import com.canwar.baseproject.utils.NETWORK_TIMEOUT
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -16,9 +15,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module

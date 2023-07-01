@@ -3,7 +3,7 @@ package com.canwar.baseproject.ui.fragments.homeFragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.canwar.baseproject.model.databaseModel.Game
+import com.canwar.baseproject.model.responseModel.Game
 import com.canwar.baseproject.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
