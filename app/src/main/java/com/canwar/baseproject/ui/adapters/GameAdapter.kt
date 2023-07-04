@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.canwar.baseproject.R
 import com.canwar.baseproject.databinding.ItemRowGameBinding
 import com.canwar.baseproject.model.responseModel.Game
@@ -22,9 +24,10 @@ class GameAdapter : PagingDataAdapter<Game, GameAdapter.ViewHolder>(
                 tvTitle.text = game.name
                 tvReleaseDate.text = itemView.context.getString(R.string.release_date_x, game.released)
                 tvRating.text = game.rating.toString()
-                /*Glide.with(this.root)
-                    .load(game.backgroundImage)
-                    .into(ivGame)*/
+                ivGame.load(game.backgroundImage) {
+                    crossfade(true)
+                        .transformations(RoundedCornersTransformation())
+                }
                 root.setOnClickListener {
                     Toast.makeText(itemView.context, "Game Clicked ${game.backgroundImage}", Toast.LENGTH_LONG).show()
                 }
